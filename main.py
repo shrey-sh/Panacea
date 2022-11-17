@@ -9,14 +9,24 @@ svm = pickle.load(open('svm.pkl', 'rb'))
 
 
 def classify(num):
-    if num == [[1, 1]]:
-        return 'Good health \n Bad Financial Status'
-    elif num == [[0, 0]]:
-        return 'Bad Health \n Good Financial Status'
+    if num == [[0, 0]]:
+        return 'Average Health and Financial well-being'
     elif num == [[0, 1]]:
-        return 'High health risk \n Bad Financial Status'
+        return 'Average Health and Good Financial well-being'
+    elif num == [[0, 2]]:
+        return 'Average Health and Low Financial well-being'
+    elif num == [[1, 1]]:
+        return 'Low health and good Financial well-being'
+    elif num == [[1, 0]]:
+        return 'Low health and Average Financial well-being'
+    elif num == [[1, 2]]:
+        return 'Low health and Bad Financial well-being'
+    elif num == [[2, 0]]:
+        return 'Good health and Average Financial well-being'
+    elif num == [[2, 1]]:
+        return 'Good health and Good Financial well-being'
     else:
-        return 'Good health \n Good Financial Status'
+        return 'Good health and Low Financial well-being'
 
 
 def main():
@@ -170,7 +180,9 @@ def main():
             predicted_value = np.array(predicted_values).tolist()
             print(predicted_value)
             st.success(classify(predicted_value))
+        # print(bmi,sleep,gender,predicted_value)
 
 
 if __name__ == '__main__':
     main()
+
