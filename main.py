@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
 import sklearn
@@ -161,28 +162,52 @@ def main():
     else:
         financial_planning_time_horizon = 5
 
+    mean_health = (((fruits + meditation + sleep + steps) / 4) * 10)
+    financial_mean = (((handle_expenses + savehabit + follow_financial_goals + financial_planning_time_horizon) / 4) * 10)
     inputs = [[age, gender, bmi, fruits, meditation, sleep, steps, handle_expenses, savehabit, follow_financial_goals,
                financial_planning_time_horizon]]
 
-    if st.button('Classify'):
+    if st.button('Submit'):
         if option == 'Logistic Regression':
             predicted_values = logistic_regression_model.predict(inputs)
             predicted_value = np.array(predicted_values).tolist()
-            print(predicted_value)
+            st.pyplot(plot(bmi, mean_health, financial_mean))
             st.success(classify(predicted_value))
+
         elif option == 'Naive Bayes':
             predicted_values = nav_model.predict(inputs)
             predicted_value = np.array(predicted_values).tolist()
-            print(predicted_values)
+            st.pyplot(plot(bmi, mean_health, financial_mean))
             st.success(classify(predicted_value))
         else:
             predicted_values = svm.predict(inputs)
             predicted_value = np.array(predicted_values).tolist()
-            print(predicted_value)
+            st.pyplot(plot(bmi, mean_health, financial_mean))
             st.success(classify(predicted_value))
         # print(bmi,sleep,gender,predicted_value)
 
 
+def plot(bmi, mean_health, financial_mean):
+    if bmi < 18:
+        labels = 'Underweight', 'Health Score', 'Financial Score'
+    elif 18 <= bmi < 25:
+        labels = 'Normal weight', 'Health Score', 'Financial Score'
+    elif 25 <= bmi < 30:
+        labels = 'Overweight', 'Health Score', 'Financial Score'
+    else:
+        labels = 'Obesity', 'Health Score', 'Financial Score'
+
+    sizes = [bmi, mean_health, financial_mean]
+    explode = (0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+    fig1, ax1 = plt.subplots()
+    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+            shadow=True, startangle=90)
+    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    return fig1
+
+
 if __name__ == '__main__':
     main()
+
 
