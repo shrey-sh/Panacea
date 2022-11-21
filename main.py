@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import streamlit as st
 import numpy as np
+from diet_recommendations import Weight_Loss, Weight_Gain
 import sklearn
 import pickle
 
@@ -163,7 +164,8 @@ def main():
         financial_planning_time_horizon = 5
 
     mean_health = (((fruits + meditation + sleep + steps) / 4) * 10)
-    financial_mean = (((handle_expenses + savehabit + follow_financial_goals + financial_planning_time_horizon) / 4) * 10)
+    financial_mean = (
+                ((handle_expenses + savehabit + follow_financial_goals + financial_planning_time_horizon) / 4) * 10)
     inputs = [[age, gender, bmi, fruits, meditation, sleep, steps, handle_expenses, savehabit, follow_financial_goals,
                financial_planning_time_horizon]]
 
@@ -172,6 +174,8 @@ def main():
             predicted_values = logistic_regression_model.predict(inputs)
             predicted_value = np.array(predicted_values).tolist()
             st.pyplot(plot(bmi, mean_health, financial_mean))
+            st.header("Recommended Food items for Breakfast")
+            st.pyplot(recommendation_plot(age, bmi))
             st.success(classify(predicted_value))
 
         elif option == 'Naive Bayes':
@@ -187,6 +191,19 @@ def main():
         # print(bmi,sleep,gender,predicted_value)
 
 
+def recommendation_plot(age, bmi):
+    t1 = Weight_Loss(age, bmi, 1)
+    names = t1[0]
+    print(names)
+    size = t1[1]
+    print(size)
+    my_circle = plt.Circle((0, 0), 0.7, color='white')
+    plt.pie(size, labels=names, wedgeprops={'linewidth': 7, 'edgecolor': 'white'})
+    p = plt.gcf()
+    p.gca().add_artist(my_circle)
+    return p
+
+
 def plot(bmi, mean_health, financial_mean):
     if bmi < 18:
         labels = 'Underweight', 'Health Score', 'Financial Score'
@@ -198,16 +215,14 @@ def plot(bmi, mean_health, financial_mean):
         labels = 'Obesity', 'Health Score', 'Financial Score'
 
     sizes = [bmi, mean_health, financial_mean]
-    explode = (0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+    explode = (0.1, 0, 0)
 
     fig1, ax1 = plt.subplots()
     ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
             shadow=True, startangle=90)
-    ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+    ax1.axis('equal')
     return fig1
 
 
 if __name__ == '__main__':
     main()
-
-
