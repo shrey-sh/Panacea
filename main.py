@@ -193,13 +193,13 @@ def main():
 
 def plot(bmi, mean_health, financial_mean):
     if bmi < 18:
-        labels = 'Underweight', 'Health Score', 'Financial Score'
+        labels = 'Underweight(BMI)', 'Health Score', 'Financial Score'
     elif 18 <= bmi < 25:
-        labels = 'Normal weight', 'Health Score', 'Financial Score'
+        labels = 'Normal weight(BMI)', 'Health Score', 'Financial Score'
     elif 25 <= bmi < 30:
-        labels = 'Overweight', 'Health Score', 'Financial Score'
+        labels = 'Overweight(BMI)', 'Health Score', 'Financial Score'
     else:
-        labels = 'Obesity', 'Health Score', 'Financial Score'
+        labels = 'Obesity(BMI)', 'Health Score', 'Financial Score'
 
     sizes = [bmi, mean_health, financial_mean]
 
