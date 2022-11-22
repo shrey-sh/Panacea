@@ -204,7 +204,7 @@ def plot(bmi, mean_health, financial_mean):
     sizes = [bmi, mean_health, financial_mean]
 
     my_circle = plt.Circle((0, 0), 0.7, color='white')
-    plt.pie(sizes, labels=labels, wedgeprops={'linewidth': 7, 'edgecolor': 'white'})
+    plt.pie(sizes, labels=labels, autopct="%.1f%%", wedgeprops={'linewidth': 7, 'edgecolor': 'white'})
     p = plt.gcf()
     p.gca().add_artist(my_circle)
     return st.pyplot(p)
