@@ -211,7 +211,7 @@ def plot(bmi, mean_health, financial_mean):
 
 
 def recommendation_plot(age, bmis):
-    t1 = Weight_Loss(age, bmis, 1)
+    t1 = Weight_Loss(age, bmis, 3)
     labels = t1[0]
     print(labels)
     size = t1[1]
