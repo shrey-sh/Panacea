@@ -9,7 +9,7 @@ page = st.sidebar.selectbox("Choose The Field of Influence", ["Health", "Finance
 st.title("Panacea Behaviour Analysis")
 html_temp = """
 <div style="background-color:teal ;padding:10px">
-<h2 style="color:white;text-align:center;">Health Financial Score Prediction</h2>
+<h2 style="color:white;text-align:center;">Health Score Prediction</h2>
 </div>
 <br>
 """
@@ -42,7 +42,6 @@ if page == "Health":
 
 
     def main():
-        st.title("Panacea Behaviour Analysis")
         html_temp = """
         <div style="background-color:teal ;padding:10px">
         <h2 style="color:white;text-align:center;">Health Financial Score Prediction</h2>
@@ -240,6 +239,13 @@ if page == "Health":
         return st.pyplot(fig1)
 
 if page == "Finance":
+    
+    html_temp = """
+    <div style="background-color:teal ;padding:10px">
+    <h2 style="color:white;text-align:center;">Financial Score Prediction</h2>
+    </div>
+    <br>
+    """
 
     options = st.sidebar.selectbox("Choose From below", ["Start Up Success Predictor", "Entrepreneur skill Testing"])
 
